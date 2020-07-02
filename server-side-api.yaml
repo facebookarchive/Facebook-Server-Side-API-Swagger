@@ -98,6 +98,19 @@ definitions:
         $ref: '#/definitions/user_data'
       custom_data:
         $ref: '#/definitions/custom_data'
+      data_processing_options:
+        type: "array"
+        items:
+          type: "string"
+        description: "Processing options you would like to enable for a specific event. Current accepted value is LDU for Limited Data Use. The name of this field can be presented differently, depending on the API and implementation you are using. For example, this is dataProcessingOptions for a Pixel JavaScript call, but data_processing_options for a Server-Side API call. Please see the example calls below. An empty array can be sent to explicitly specify that this event shouldn't be processed with the Limited Data Use restrictions."
+        example: ['LDU']
+      data_processing_options_country:
+        type: "integer"
+        description: "A country that you want to associate to this data processing option. Current accepted values are 1, for the United States of America, or 0, to request that we geolocate that event."
+      data_processing_options_state:
+        type: "integer"
+        description: "Optional. A state that you want to associate to this data processing option. Current accepted values are 1000, for California, or 0, to request that we geolocate that event.If you set a country, you must also set a state. Otherwise, we apply our geolocation logic to the entire event."
+
 
   custom_data:
     type: "object"
