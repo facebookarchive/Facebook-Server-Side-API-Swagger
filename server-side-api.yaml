@@ -98,6 +98,19 @@ definitions:
         $ref: '#/definitions/user_data'
       custom_data:
         $ref: '#/definitions/custom_data'
+      data_processing_options:
+        type: "array"
+        items:
+          type: "string"
+        description: "Processing options you would like to enable for a specific event. For more details see: https://developers.facebook.com/docs/marketing-apis/data-processing-options."
+        example: ['LDU']
+      data_processing_options_country:
+        type: "integer"
+        description: "The country that you want to associate to this data processing option. If you set a country, you must also set a state. For more details see: https://developers.facebook.com/docs/marketing-apis/data-processing-options"
+      data_processing_options_state:
+        type: "integer"
+        description: "The state that you want to associate with this data processing option. For more details see: https://developers.facebook.com/docs/marketing-apis/data-processing-options."
+
 
   custom_data:
     type: "object"
