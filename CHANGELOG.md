@@ -2,3 +2,5 @@
 * Server-side API v6.0 swagger api doc
 1.0.1 (July 2, 2020)
 * Added Data Processing Options fields. See https://developers.facebook.com/docs/marketing-apis/data-processing-options for more details.
+** Unreleased
+* Bump graph API to v8.0

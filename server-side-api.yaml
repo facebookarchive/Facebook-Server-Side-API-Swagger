@@ -7,7 +7,7 @@ info:
   contact:
     email: "web_signals_integrations@fb.com"
 host: "graph.facebook.com"
-basePath: "/v6.0"
+basePath: "/v8.0"
 tags:
 - name: "Server-Side API (for Web)"
   description: "The server-side API (for web) allows advertisers to send web events from their servers directly to Facebook. Server-side events are linked to a pixel and are processed like browser pixel events. This means that server-side events are used in measurement, reporting, and optimization in the same way as browser pixel events."
