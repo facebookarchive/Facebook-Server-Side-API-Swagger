@@ -1,19 +1,19 @@
 swagger: "2.0"
 info:
-  description: "The server-side API (for web) allows advertisers to send web events from their servers directly to Facebook. Server-side events are linked to a pixel and are processed like browser pixel events. This means that server-side events are used in measurement, reporting, and optimization in the same way as browser pixel events."
+  description: "The Conversions API (for web) allows advertisers to send web events from their servers directly to Facebook. Conversions API events are linked to a pixel and are processed like browser pixel events. This means that these conversion events are used in measurement, reporting, and optimization in the same way as browser pixel events."
   version: "1.0.0"
-  title: "Facebook Server-Side API (for Web)"
+  title: "Facebook Conversions API (for Web)"
   termsOfService: "https://www.facebook.com/legal/technology_terms"
   contact:
     email: "web_signals_integrations@fb.com"
 host: "graph.facebook.com"
 basePath: "/v8.0"
 tags:
-- name: "Server-Side API (for Web)"
-  description: "The server-side API (for web) allows advertisers to send web events from their servers directly to Facebook. Server-side events are linked to a pixel and are processed like browser pixel events. This means that server-side events are used in measurement, reporting, and optimization in the same way as browser pixel events."
+- name: "Conversions API (for Web)"
+  description: "The Conversions API (for web) allows advertisers to send web events from their servers directly to Facebook. Conversions API events are linked to a pixel and are processed like browser pixel events. This means that these conversion events are used in measurement, reporting, and optimization in the same way as browser pixel events."
   externalDocs:
     description: "Find out more"
-    url: "https://developers.facebook.com/docs/marketing-api/server-side-api"
+    url: "https://developers.facebook.com/docs/marketing-api/conversions-api"
 schemes:
 - "https"
 paths:
@@ -26,7 +26,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Facebook Server-Side API (for Web) post request"
+        description: "Facebook Conversions API (for Web) post request"
         required: true
         schema:
           $ref: '#/definitions/event_request'
@@ -57,6 +57,7 @@ definitions:
     type: "object"
     required:
       - data
+      - partner_agent
     properties:
       data:
         description: "An array of Server Event objects."
@@ -64,12 +65,13 @@ definitions:
         items:
           $ref: '#/definitions/event'
       test_event_code:
-        description: "Code used to verify that your server events are received correctly by Facebook. Use this code to test your server events in the Test Events feature in Events Manager. See Test Events Tool (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api/using-the-api#testEvents) for an example."
+        description: "Code used to verify that your server events are received correctly by Facebook. Use this code to test your server events in the Test Events feature in Events Manager. See Test Events Tool (https://developers.facebook.com/docs/marketing-api/conversions-api/using-the-api#testEvents) for an example."
         type: "string"
       partner_agent:
         description: "Partner agent string."
         type: "string"
         enum: ["swagger"]
+        default: "swagger"
 
   event:
     type: "object"
@@ -80,7 +82,7 @@ definitions:
     properties:
       event_name:
         type: "string"
-        description: "A Facebook pixel Standard Event or Custom Event name. This field is used to deduplicate events sent by both Facebook Pixel and Server-Side API. event_id is also used in deduplication. For the same customer action, event from the browser event match event_name from the server event. If we find a match between events sent within 48 hours of each other, we only consider the first one. If a server and browser event arrive at approximately the same time (within 5 minutes of each other), we favor the browser event."
+        description: "A Facebook pixel Standard Event or Custom Event name. This field is used to deduplicate events sent by both Facebook Pixel and Conversions API. event_id is also used in deduplication. For the same customer action, event from the browser event match event_name from the server event. If we find a match between events sent within 48 hours of each other, we only consider the first one. If a server and browser event arrive at approximately the same time (within 5 minutes of each other), we favor the browser event."
       event_time:
         type: "integer"
         format: "int64"
@@ -93,7 +95,7 @@ definitions:
         description: "A flag that indicates we should not use this event for ads delivery optimization. If set to true, we only use the event for attribution."
       event_id:
         type: "string"
-        description: "This ID can be any unique string chosen by the advertiser. event_id is used to deduplicate events sent by both Facebook Pixel and Server-Side API. event_name is also used in deduplication. For deduplication, the eventID from a browser event must match the event_id in the corresponding server event."
+        description: "This ID can be any unique string chosen by the advertiser. event_id is used to deduplicate events sent by both Facebook Pixel and Conversions API. event_name is also used in deduplication. For deduplication, the eventID from a browser event must match the event_id in the corresponding server event."
       user_data:
         $ref: '#/definitions/user_data'
       custom_data:
@@ -249,7 +251,7 @@ definitions:
       external_id:
         type: "string"
         format: "SHA256"
-        description: "Any unique ID from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs. If External ID is being sent via other channels, it should be sent in the same format via Server-Side API. Hashing external_id using SHA-256 algorithm is optional."
+        description: "Any unique ID from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs. If External ID is being sent via other channels, it should be sent in the same format via Conversions API. Hashing external_id using SHA-256 algorithm is optional."
       client_ip_address:
         type: "string"
         description: "The IP address of the browser corresponding to the event."
@@ -258,10 +260,10 @@ definitions:
         description: "The user agent for the browser corresponding to the event."
       fbc:
         type: "string"
-        description: "The Facebook click ID value stored in the _fbc browser cookie under your domain. See Managing fbc and fbp Parameters for how to get this value (https://developers.facebook.com/docs/marketing-api/server-side-api/parameters/fbp-and-fbc), or generate this value from a fbclid query parameter."
+        description: "The Facebook click ID value stored in the _fbc browser cookie under your domain. See Managing fbc and fbp Parameters for how to get this value (https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/fbp-and-fbc), or generate this value from a fbclid query parameter."
       fbp:
         type: "string"
-        description: "The Facebook browser ID value stored in the _fbp browser cookie under your domain. See Managing fbc and fbp Parameters for how to get this value (https://developers.facebook.com/docs/marketing-api/server-side-api/parameters/fbp-and-fbc)."
+        description: "The Facebook browser ID value stored in the _fbp browser cookie under your domain. See Managing fbc and fbp Parameters for how to get this value (https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/fbp-and-fbc)."
       subscription_id:
         type: "string"
         description: "The subscription ID for the user in this transaction. This is similar to the order ID for an individual product."
@@ -288,11 +290,11 @@ definitions:
           code:
             type: "string"
           messages:
-            type : "string"
+            type: "string"
           type:
-            type : "string"
+            type: "string"
           fbtrace_id:
-            type : "string"
+            type: "string"
           error_subcode:
             type: "string"
           is_transient:
@@ -303,5 +305,5 @@ definitions:
             type: "string"
 
 externalDocs:
-  description: "Find out more about Facebook Server-Side API"
-  url: "https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api"
+  description: "Find out more about Facebook Conversions API"
+  url: "https://developers.facebook.com/docs/marketing-api/conversions-api"
