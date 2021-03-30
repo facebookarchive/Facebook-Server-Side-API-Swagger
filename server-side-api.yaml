@@ -79,6 +79,7 @@ definitions:
       - event_name
       - event_time
       - user_data
+      - action_source
     properties:
       event_name:
         type: "string"
@@ -96,6 +97,9 @@ definitions:
       event_id:
         type: "string"
         description: "This ID can be any unique string chosen by the advertiser. event_id is used to deduplicate events sent by both Facebook Pixel and Conversions API. event_name is also used in deduplication. For deduplication, the eventID from a browser event must match the event_id in the corresponding server event."
+      action_source:
+        type: "string"
+        description: "This field allows you to specify where your conversions occurred. Knowing where your events took place helps ensure your ads go to the right people. See docs for the allowable values. https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event#action-source"
       user_data:
         $ref: '#/definitions/user_data'
       custom_data:
